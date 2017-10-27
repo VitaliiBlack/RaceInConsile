@@ -12,10 +12,7 @@ public:
   {
     MESSAGE_NONE,
     MESSAGE_PLAY,
-    MESSAGE_OPTIONS,
     MESSAGE_EXIT,
-    MESSAGE_GRAY,
-    MESSAGE_DARK,
   };
 
 private:

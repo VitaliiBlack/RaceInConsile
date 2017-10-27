@@ -9,7 +9,6 @@ class Object
 public:
   bool isEnabled = true;
   bool isVisible = true;
-  //COLOR roadColor = COLOR_GRAY;
   virtual void onKeyDown(int key) {};
   virtual void onKeyUp(int key) {};
   virtual void onUpdate() {};

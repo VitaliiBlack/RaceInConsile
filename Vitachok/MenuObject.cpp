@@ -24,26 +24,8 @@ MenuObject::MenuObject() : mainRect_(
     mainRect_.getWidth()  * 0.4,
     1
   );
-  /*mItems_[2].set(
-    mainRect_.getWidth()  * 0.3 + mainRect_.x,
-    mainRect_.getHeight() * 0.9 + mainRect_.y,
-    mainRect_.getWidth()  * 0.4,
-    1
-  );
-
-  sItems_[0].set(
-    mainRect_.getWidth()  * 0.3 + mainRect_.x,
-    mainRect_.getHeight() * 0.3 + mainRect_.y,
-    mainRect_.getWidth()  * 0.4,
-    1
-  );
-  sItems_[1].set(
-    mainRect_.getWidth()  * 0.3 + mainRect_.x,
-    mainRect_.getHeight() * 0.6 + mainRect_.y,
-    mainRect_.getWidth()  * 0.4,
-    1
-  );*/
- 
+  
+  
 } 
 
 void MenuObject::onKeyDown(int key)
@@ -65,7 +47,7 @@ void MenuObject::onKeyDown(int key)
                     
     default:                                                                break;
   }
-  choosenIndex_ = range(0, choosenIndex_, 2);
+  choosenIndex_ = range(0, choosenIndex_, 1);
 }
 
 void MenuObject::onDraw(Canvas & canvas)
