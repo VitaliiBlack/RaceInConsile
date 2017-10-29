@@ -4,6 +4,8 @@
 #undef max
 #undef min
 
+
+// draw rectangle any size
 class Rect
 {
   int width_ = 0;
@@ -14,11 +16,14 @@ public:
   int y = 0;
 
   Rect();
+
+  //rect position and size
   Rect(int x, int y, int width, int height);
   int getRight();
   int getBottom();
   int getWidth();
   int getHeight();
+
   void setWidth(int width);
   void setHeight(int height);
   void set(int x, int y, int width, int height);

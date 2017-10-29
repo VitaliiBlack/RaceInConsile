@@ -194,13 +194,16 @@ void GameObject::onDraw(Canvas & canvas)
 
     canvas.drawText(Application::instance().width / 2 - 5, Application::instance().height/2, "PAUSED", COLOR_RED, COLOR_BLACK);
   }
-  if(crush)
+  if (crush)
   {
     Rect rect;
-    
-    rect.set(0,0, Application::instance().width, Application::instance().height);
-    canvas.drawRect(rect, '/', COLOR_RED, COLOR_RED);
-    canvas.drawText(Application::instance().width/2 -5, Application::instance().height / 2, "Game over", COLOR_BLUE, COLOR_YELLOW);
 
+    rect.set(0, 0, Application::instance().width, Application::instance().height);
+    canvas.drawRect(rect, '/', COLOR_RED, COLOR_RED);
+    canvas.drawText(Application::instance().width / 2 - 5, Application::instance().height / 2, "Game over", COLOR_BLUE, COLOR_YELLOW);
+
+    
+  
+    
   }
 }
