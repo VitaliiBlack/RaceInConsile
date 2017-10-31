@@ -1,6 +1,5 @@
 #include "GameObject.h"
 
-
 //create new objects & setup it
 
 GameObject::GameObject()
@@ -33,16 +32,11 @@ GameObject::GameObject()
   }
 }
 
-
-
 //Destructor (of course)
 GameObject::~GameObject()
 {
   delete[] road_;
 }
-
-
-
 
 //Update function
 void GameObject::onUpdate()
@@ -71,7 +65,6 @@ void GameObject::onUpdate()
   float prev = pos_;
   pos_ += speed_;
 
-
   int deltaY = int(pos_) - int(prev);
 
   for (int repeat = 0; repeat < deltaY; repeat++)
@@ -90,8 +83,6 @@ void GameObject::onUpdate()
     road_[0].x = range(Application::instance().getWidth() * 0.05, x, Application::instance().getWidth() * 0.45);
   }
 
-
-
   for (int i = 0; i < BARIER_COUNT; i++)
   {
     int y = barriers_[i].y + deltaY;
@@ -105,10 +96,7 @@ void GameObject::onUpdate()
     barriers_[i].y = y;
   }
   score_ += deltaY;
-
   pos_ = pos_ - int(pos_);
-
-
 
   //Collision calculate
   for (int i = 0; i < Application::instance().getWidth(); i++)
