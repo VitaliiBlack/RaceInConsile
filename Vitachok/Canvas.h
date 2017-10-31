@@ -24,7 +24,7 @@ class Canvas
   int height_ = 0;
 
   //Small point of display (like a pixel)
-  void cell(int x, int y, char character, COLOR color, COLOR background, Rect clipRect);
+  void cell(int x, int y, char character, COLOR color, COLOR background, BaseDrawElement clipRect);
 
   //char setup widht & hight
   void resizeCharInfo(int width, int height);
@@ -40,14 +40,14 @@ public:
   //return height
   int getHeight();
 
-  //resize screen width heihgt
+  //resize screen width heihgt 
   void resize(int width, int height);
 
-  //filling points " "
+  //filling points " ";
   void clear(COLOR color);
   //clear, resize rect
-  void clear(COLOR color, Rect rect);
-  void drawRect(Rect rect, char character, COLOR color, COLOR background);
+  void clear(COLOR color, BaseDrawElement rect);
+  void drawRect(BaseDrawElement rect, char character, COLOR color, COLOR background);
   void drawText(int x, int y, std::string str, COLOR color, COLOR background);
   void drawCell(int x, int y, char character, COLOR color, COLOR background);
   void display(Console &console);

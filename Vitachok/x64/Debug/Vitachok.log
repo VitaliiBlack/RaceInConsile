@@ -1,0 +1,35 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (Vitachok.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  GameObject.cpp
+c:\users\gvita\desktop\vitas\vitachok\gameobject.h(14): warning C4305: инициализация: усечение из "double" в "float"
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(15): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(19): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(23): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(25): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(27): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(63): warning C4305: +=: усечение из "double" в "float"
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(67): warning C4305: -=: усечение из "double" в "float"
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(69): warning C4305: аргумент: усечение из "double" в "float"
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(90): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\gameobject.cpp(102): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Создание кода...
+  Компиляция...
+  Object.cpp
+  MenuObject.cpp
+c:\users\gvita\desktop\vitas\vitachok\gameobject.h(14): warning C4305: инициализация: усечение из "double" в "float"
+c:\users\gvita\desktop\vitas\vitachok\menuobject.cpp(14): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\menuobject.cpp(20): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\users\gvita\desktop\vitas\vitachok\menuobject.cpp(26): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  MainObject.cpp
+c:\users\gvita\desktop\vitas\vitachok\gameobject.h(14): warning C4305: инициализация: усечение из "double" в "float"
+  Main.cpp
+c:\users\gvita\desktop\vitas\vitachok\gameobject.h(14): warning C4305: инициализация: усечение из "double" в "float"
+  Console.cpp
+c:\users\gvita\desktop\vitas\vitachok\console.cpp(74): warning C4838: преобразование из "int" в "SHORT" требует сужающего преобразования
+c:\users\gvita\desktop\vitas\vitachok\console.cpp(75): warning C4838: преобразование из "int" в "SHORT" требует сужающего преобразования
+c:\users\gvita\desktop\vitas\vitachok\console.cpp(108): warning C4838: преобразование из "int" в "SHORT" требует сужающего преобразования
+c:\users\gvita\desktop\vitas\vitachok\console.cpp(109): warning C4838: преобразование из "int" в "SHORT" требует сужающего преобразования
+  Canvas.cpp
+c:\users\gvita\desktop\vitas\vitachok\canvas.cpp(104): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Application.cpp
+  Создание кода...
+  Vitachok.vcxproj -> C:\Users\gvita\Desktop\vitaS\x64\Debug\RaceConsoleGame.exe

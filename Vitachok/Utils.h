@@ -6,7 +6,7 @@
 
 
 // draw rectangle any size
-class Rect
+class BaseDrawElement
 {
   int width_ = 0;
   int height_ = 0;
@@ -15,10 +15,10 @@ public:
   int x = 0;
   int y = 0;
 
-  Rect();
+  BaseDrawElement();
 
   //rect position and size
-  Rect(int x, int y, int width, int height);
+  BaseDrawElement(int x, int y, int width, int height);
   int getRight();
   int getBottom();
   int getWidth();
@@ -27,9 +27,9 @@ public:
   void setWidth(int width);
   void setHeight(int height);
   void set(int x, int y, int width, int height);
-  Rect intersectRect(Rect rect);
+  BaseDrawElement intersectRect(BaseDrawElement rect);
   bool hasPoint(int x, int y);
-  bool isIntersectRect(Rect rect);
+  bool isIntersectRect(BaseDrawElement rect);
   bool isEmpty();
 };
 

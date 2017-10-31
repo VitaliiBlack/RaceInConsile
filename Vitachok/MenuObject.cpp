@@ -6,9 +6,9 @@
 #include "GameObject.h"
 
 MenuObject::MenuObject() : mainRect_(
-    Application::instance().width  * 0.3,
-    Application::instance().height * 0.2,
-    Application::instance().width  * 0.2,
+    Application::instance().getWidth()  * 0.3,
+    Application::instance().getHeight() * 0.2,
+    Application::instance().getHeight()  * 0.2,
     11
   )
 {
@@ -32,8 +32,8 @@ void MenuObject::onKeyDown(int key)
 {
   switch (key)
   {
-    case KEY_ARROW_UP:   choosenIndex_--;                                   break;
-    case KEY_ARROW_DOWN: choosenIndex_++;                                   break;
+    case KEY_ARROW_UP:   choosenIndex_--;       break;
+    case KEY_ARROW_DOWN: choosenIndex_++;       break;
     case KEY_ENTER: if (choosenIndex_ == 0)
                     {
                       message_ = MESSAGE_PLAY;
@@ -45,7 +45,7 @@ void MenuObject::onKeyDown(int key)
                       break;
                     }
                     
-    default:                                                                break;
+    default:                                    break;
   }
   choosenIndex_ = range(0, choosenIndex_, 1);
 }

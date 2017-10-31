@@ -7,13 +7,20 @@
 class Object
 {
 public:
-  bool isEnabled = true;
-  bool isVisible = true;
+  
   virtual void onKeyDown(int key) {};
   virtual void onKeyUp(int key) {};
   virtual void onUpdate() {};
   virtual void onDraw(Canvas &canvas) {};
   virtual ~Object() {};
+  bool isEnabled() const;
+  bool isVisible() const;
+  void setEnabled(bool);
+  void setVisible(bool);
+
+private:
+  bool isEnabled_ = true;
+  bool isVisible_ = true;
 };
 
 #endif // OBJECT_H

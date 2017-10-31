@@ -3,12 +3,22 @@
 #include <ctime>
 #include <algorithm>
 
-Application::Application() :
-  console_(80, 60),
-  canvas_(console_.getWidth(), console_.getHeight()),
-  width(console_.getWidth()),
-  height(console_.getHeight())
-{}
+//initialization in consrtuctor
+Application::Application()
+{
+  console_.resize(DEFAULT_CONSOLE_WIDTH, DEFAULT_CONSOLE_HEIGHT);
+  canvas_.resize(console_.getWidth(), console_.getWidth());
+}
+
+int Application::getWidth() const
+{
+  return console_.getWidth();
+}
+
+int Application::getHeight() const
+{
+  return console_.getHeight();
+}
 
 Application& Application::instance()
 {
@@ -46,9 +56,9 @@ void Application::run()
     checkKeyboard();
     update();
     millis = clock() - millis;
-    if (millis < delay)
+    if (millis < DEFAULT_APPLICATION_DELAY)
     {
-      Sleep(delay - millis);
+      Sleep(DEFAULT_APPLICATION_DELAY - millis);
     }
   }
 }
@@ -56,33 +66,21 @@ void Application::run()
 void Application::checkKeyboard()
 {
   bool state = false;
-  for (int i = 1; i < 256; i++)
+  for (int key = 1; key < KEY_COUNT; key++)
   {
-    state = HIWORD(GetKeyState(i));
+    state = HIWORD(GetKeyState(key));
     if (state)
     {
-      if (!keyStates_[i])
+      if (!keyStates_[key])
       {
-        for (Object* object : objects_)
-        {
-          if (object->isEnabled)
-          {
-            object->onKeyDown(i);
-          }
-        }
+        notifyKeyDown(key);
       }
     }
-    else if (keyStates_[i])
+    else if (keyStates_[key])
     {
-      for (Object* object : objects_)
-      {
-        if (object->isEnabled)
-        {
-          object->onKeyUp(i);
-        }
-      }
+      notifyKeyUp(key);
     }
-    keyStates_[i] = state;
+    keyStates_[key] = state;
   }
 }
 
@@ -91,14 +89,36 @@ void Application::update()
   canvas_.clear(COLOR_BLACK);
   for (Object* object : objects_)
   {
-    if (object->isEnabled)
+    if (object->isEnabled())
     {
       object->onUpdate();
     }
-    if (object->isVisible)
+    if (object->isVisible())
     {
       object->onDraw(canvas_);
     }
   }
   canvas_.display(console_);
+}
+
+void Application::notifyKeyDown(int key)
+{
+  for (int i = 0; i < objects_.size(); i++)
+  {
+    if (objects_[i]->isEnabled())
+    {
+      objects_[i]->onKeyDown(key);
+    }
+  }
+}
+
+void Application::notifyKeyUp(int key)
+{
+  for (int i = 0; i < objects_.size(); i++)
+  {
+    if (objects_[i]->isEnabled())
+    {
+      objects_[i]->onKeyUp(key);
+    }
+  }
 }

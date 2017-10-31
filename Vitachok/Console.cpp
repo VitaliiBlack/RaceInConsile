@@ -2,16 +2,20 @@
 #include "Utils.h"
 #include <windows.h>
 #include <tchar.h>
+#include "Macros.h"
 
 Console::Console()
 {
-  setFontSize(12);
-  resize(80, 40);
+  setFontSize(fontSize);
+  resize(width_, height_);
 }
+
+
 
 Console::Console(int width, int height)
 {
-  setFontSize(12);
+  
+  setFontSize(fontSize);
   resize(width, height);
 }
 
@@ -21,19 +25,29 @@ Console::Console(int width, int height, short fontSize)
   resize(width, height);
 }
 
-int Console::getWidth()
+int Console::getWidth() const
 {
   return width_;
 }
 
-int Console::getHeight()
+int Console::getHeight() const
 {
   return height_;
 }
 
+void Console::setWidht(int widht)
+{
+  this->width_ = widht;
+}
+
+void Console::setHight(int hight)
+{
+  this->height_ = hight;
+}
+
 void Console::setFontSize(short fontSize)
 {
-  fontSize = range(5, fontSize, 40);
+  fontSize = range(MIN_CONSOLE_FONTSIZE, fontSize, MAX_CONSOLE_FONTSIZE);
   CONSOLE_FONT_INFOEX font = { 0 };
   font.cbSize = sizeof(font);
   font.dwFontSize.Y = fontSize;
@@ -53,8 +67,8 @@ short Console::getFontSize()
 
 void Console::resize(int width, int height)
 {
-  width   = range(14, width, 500);
-  height  = range(1, height, 200);
+  width   = range(MIN_CONSOLE_WIDTH, width, MAX_CONSOLE_WIDTH);
+  height  = range(MIN_CONSOLE_HEIGHT, height, MAX_CONSOLE_HEIGHT);
   width_  = width;
   height_ = height;
   COORD bufferSize = { width, height };
@@ -75,6 +89,9 @@ void Console::recalcSize(bool noMove)
   SystemParametersInfo(SPI_GETWORKAREA, 0, &displayArea, 0);
   GetClientRect(hwnd_, &clientRect);
   GetWindowRect(hwnd_, &windowRect);
+
+
+
 
   SetWindowPos(
     hwnd_, 0,

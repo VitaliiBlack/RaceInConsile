@@ -7,9 +7,9 @@ class Console
 {
   HANDLE hOut_ = GetStdHandle(STD_OUTPUT_HANDLE);
   HWND hwnd_ = GetConsoleWindow();
-  int width_ = 0;
-  int height_ = 0;
-
+  int width_ = 80;
+  int height_ = 60;
+  int fontSize = 12;
   //setup position & size of cmd console screen
   void recalcSize(bool noMove);
 public:
@@ -19,9 +19,10 @@ public:
   Console(int width, int height, short fontSize);
 
 
-  int getWidth();
-  int getHeight();
-
+  int getWidth() const;
+  int getHeight() const;
+  void setWidht(int);
+  void setHight(int);
   // set console setups msdn half
   void setFontSize(short fontSize);
   short getFontSize();

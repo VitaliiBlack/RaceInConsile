@@ -5,29 +5,29 @@
 
 GameObject::GameObject()
 {
-  road_ = new Rect[Application::instance().height];
+  road_ = new BaseDrawElement[Application::instance().getHeight()];
   //generate road mass in hight of screen of game
-  for (int i = 0; i < Application::instance().height; i++)
+  for (int i = 0; i < Application::instance().getHeight(); i++)
   {
     road_[i].set(
-      Application::instance().width * 0.25, i,
-      Application::instance().width * 0.5,  1
+      Application::instance().getWidth() * 0.25, i,
+      Application::instance().getWidth() * 0.5,  1
     );
   }
 
   //creation car
-  car_ = Rect(Application::instance().width * 0.5, Application::instance().height - 6, 4, 5);
+  car_ = BaseDrawElement(Application::instance().getWidth() * 0.5, Application::instance().getHeight() - 6, 4, 5);
 
   //creation mass of bariers
-  barriers_[0] = Rect(random(road_[0].x, road_[0].getRight()),
-                      random(-Application::instance().height * 0.7, -3), 4, 2);
-  barriers_[1] = Rect(random(road_[0].x, road_[0].getRight()),
-                      random(-Application::instance().height * 0.7, -3), 4, 2);
-  barriers_[2] = Rect(random(road_[0].x, road_[0].getRight()),
-                      random(-Application::instance().height * 0.7, -3), 6, 3);
+  barriers_[0] = BaseDrawElement(random(road_[0].x, road_[0].getRight()),
+                      random(-Application::instance().getHeight() * 0.7, -3), 4, 2);
+  barriers_[1] = BaseDrawElement(random(road_[0].x, road_[0].getRight()),
+                      random(-Application::instance().getHeight() * 0.7, -3), 4, 2);
+  barriers_[2] = BaseDrawElement(random(road_[0].x, road_[0].getRight()),
+                      random(-Application::instance().getHeight() * 0.7, -3), 6, 3);
 
   //random set colors
-  for (int i = 0; i < barrierCount; i++)
+  for (int i = 0; i < BARIER_COUNT; i++)
   {
     barrierColors[i] = random(COLOR_BLUE, COLOR_YELLOW);
   }
@@ -82,20 +82,20 @@ void GameObject::onUpdate()
       roadDirectionIterator_ = random(10, 100);
       roadDirection_ = roadDirection_ == 1 ? 0 : 1;
     }
-    for (int i = Application::instance().height - 1; i > 0; i--)
+    for (int i = Application::instance().getHeight() - 1; i > 0; i--)
     {
       road_[i].set(road_[i - 1].x, i, road_[i - 1].getWidth(), 1);
     }
     int x = road_[0].x + random(roadDirection_ ? -1 : 0, roadDirection_ ? 0 : 1);
-    road_[0].x = range(Application::instance().width * 0.05, x, Application::instance().width * 0.45);
+    road_[0].x = range(Application::instance().getWidth() * 0.05, x, Application::instance().getWidth() * 0.45);
   }
 
 
 
-  for (int i = 0; i < barrierCount; i++)
+  for (int i = 0; i < BARIER_COUNT; i++)
   {
     int y = barriers_[i].y + deltaY;
-    if (y >= Application::instance().height)
+    if (y >= Application::instance().getWidth())
     {
       barrierColors[i] = random(COLOR_BLUE, COLOR_YELLOW);
       y = random(-20, -3);
@@ -111,18 +111,18 @@ void GameObject::onUpdate()
 
 
   //Collision calculate
-  for (int i = 0; i < Application::instance().height; i++)
+  for (int i = 0; i < Application::instance().getWidth(); i++)
   {
-    if (car_.isIntersectRect(Rect(-1000, i, road_[i].x + 1000, 1)))
+    if (car_.isIntersectRect(BaseDrawElement(-1000, i, road_[i].x + 1000, 1)))
     {
       car_.x++;
     }
-    if (car_.isIntersectRect(Rect(road_[i].getRight(), i, 1000, 1)))
+    if (car_.isIntersectRect(BaseDrawElement(road_[i].getRight(), i, 1000, 1)))
     {
       car_.x--;
     }
   }
-  for (int i = 0; i < barrierCount; i++)
+  for (int i = 0; i < BARIER_COUNT; i++)
   {
     if (car_.isIntersectRect(barriers_[i]))
     {
@@ -166,41 +166,43 @@ void GameObject::onDraw(Canvas & canvas)
   //field
   canvas.clear(COLOR_DARKGREEN);
   //road
-  for (int i = 0; i < Application::instance().height; i++)
+  for (int i = 0; i < Application::instance().getHeight(); i++)
   {
     canvas.clear(COLOR_GRAY, road_[i]);
     canvas.drawCell(road_[i].x, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
     canvas.drawCell(road_[i].getRight() - 1, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
   }
   //barrier
-  for (int i = 0; i < barrierCount; i++)
+  for (int i = 0; i < BARIER_COUNT; i++)
   {
     canvas.clear(barrierColors[i], barriers_[i]);
   }
   //car
   canvas.clear(COLOR_RED - 8, car_);
-  canvas.clear(COLOR_RED, Rect(car_.x, car_.y + 2, 4, 2));
-  canvas.drawRect(Rect(car_.x + 1, car_.y, 2, 2), '|', COLOR_WHITE, COLOR_TRANSPARENT);
+  canvas.clear(COLOR_RED, BaseDrawElement(car_.x, car_.y + 2, 4, 2));
+  canvas.drawRect(BaseDrawElement(car_.x + 1, car_.y, 2, 2), '|', COLOR_WHITE, COLOR_TRANSPARENT);
   canvas.drawCell(car_.x - 1, car_.y + 1, ' ', COLOR_BLACK, COLOR_BLACK);
   canvas.drawCell(car_.getRight(), car_.y + 1, ' ', COLOR_BLACK, COLOR_BLACK);
   canvas.drawCell(car_.x - 1, car_.y + 4, ' ', COLOR_BLACK, COLOR_BLACK);
   canvas.drawCell(car_.getRight(), car_.y + 4, ' ', COLOR_BLACK, COLOR_BLACK);
   //text
-  canvas.drawText(Application::instance().width - 17, Application::instance().height - 3, "SCORE:" + std::to_string(score_), COLOR_YELLOW, COLOR_BLACK);
-  canvas.drawText(10, Application::instance().height - 3, "SPEED:" + std::to_string(int(speed_ * 10)), COLOR_YELLOW, COLOR_BLACK);
+  canvas.drawText(Application::instance().getWidth() - 17, Application::instance().getHeight() - 3, "SCORE:" + std::to_string(score_), COLOR_YELLOW, COLOR_BLACK);
+  canvas.drawText(10, Application::instance().getHeight() - 3, "SPEED:" + std::to_string(int(speed_ * 10)), COLOR_YELLOW, COLOR_BLACK);
 
-  if (!isEnabled)
+  if (!isEnabled())
   {
 
-    canvas.drawText(Application::instance().width / 2 - 5, Application::instance().height/2, "PAUSED", COLOR_RED, COLOR_BLACK);
+    canvas.drawText(Application::instance().getWidth() / 2 - 5,
+                    Application::instance().getHeight()/2,
+                    "PAUSED", COLOR_RED, COLOR_BLACK);
   }
   if (crush)
   {
-    Rect rect;
+    BaseDrawElement rect;
 
-    rect.set(0, 0, Application::instance().width, Application::instance().height);
+    rect.set(0, 0, Application::instance().getWidth(), Application::instance().getHeight());
     canvas.drawRect(rect, '/', COLOR_RED, COLOR_RED);
-    canvas.drawText(Application::instance().width / 2 - 5, Application::instance().height / 2, "Game over", COLOR_BLUE, COLOR_YELLOW);
+    canvas.drawText(Application::instance().getWidth() / 2 - 5, Application::instance().getHeight() / 2, "Game over", COLOR_BLUE, COLOR_YELLOW);
 
     
   

@@ -35,10 +35,12 @@ Canvas::~Canvas()
   resize(0, 0);
 }
 
-void Canvas::cell(int x, int y, char character, COLOR color, COLOR background, Rect cropRect)
+void Canvas::cell(int x, int y, char character, COLOR color, COLOR background, BaseDrawElement cropRect)
 {
   if (cropRect.hasPoint(x, y))
+  {
     cells_[x][y].set(character, color, background);
+  }
 }
 
 void Canvas::resizeCharInfo(int width, int height)
@@ -82,9 +84,9 @@ void Canvas::resize(int width, int height)
   clear(COLOR_BLACK);
 }
 
-void Canvas::drawRect(Rect rect, char character, COLOR color, COLOR background)
+void Canvas::drawRect(BaseDrawElement rect, char character, COLOR color, COLOR background)
 {
-  rect = rect.intersectRect(Rect(0, 0, width_, height_));
+  rect = rect.intersectRect(BaseDrawElement(0, 0, width_, height_));
   int right  = rect.getRight();
   int bottom = rect.getBottom();
   for (int i = rect.x; i < right; i++)
@@ -95,11 +97,12 @@ void Canvas::drawRect(Rect rect, char character, COLOR color, COLOR background)
     }
   }
 }
+
 void Canvas::drawText(int x, int y, std::string str, COLOR color, COLOR background)
 {
   int i = 0;
   int length = str.size();
-  Rect rect = Rect(0, 0, width_, height_);
+  BaseDrawElement rect = BaseDrawElement(0, 0, width_, height_);
   while (i < length)
   {
     cell(x++, y, str[i++], color, background, rect);
@@ -108,7 +111,7 @@ void Canvas::drawText(int x, int y, std::string str, COLOR color, COLOR backgrou
 
 void Canvas::drawCell(int x, int y, char character, COLOR color, COLOR background)
 {
-  cell(x, y, character, color, background, Rect(0, 0, width_, height_));
+  cell(x, y, character, color, background, BaseDrawElement(0, 0, width_, height_));
 }
 
 void Canvas::clear(COLOR color)
@@ -123,12 +126,12 @@ void Canvas::clear(COLOR color)
   }
 }
 
-void Canvas::clear(COLOR color, Rect rect)
+void Canvas::clear(COLOR color, BaseDrawElement rect)
 {
   CHAR_INFO info;
   info.Char.AsciiChar = ' ';
   info.Attributes = color << 4;
-  rect = rect.intersectRect(Rect(0, 0, width_, height_));
+  rect = rect.intersectRect(BaseDrawElement(0, 0, width_, height_));
   int right  = rect.getRight();
   int bottom = rect.getBottom();
   for (int i = rect.x; i < right; i++)

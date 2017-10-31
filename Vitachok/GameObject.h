@@ -7,9 +7,9 @@
 class GameObject :
   public Object
 {
-  static const int barrierCount = 3;
+  
   int roadDirectionIterator_ = 0;
-  int roadDirection_ = 0; // 0 - left, 1 - right
+  int roadDirection_ = 0; 
   float pos_ = 0;
   float speed_ = 0.1;
   int score_ = 0;
@@ -20,10 +20,10 @@ class GameObject :
   bool toLeft = false;
   bool toRight = false;
   
-  Rect *road_;
-  Rect car_;
-  Rect barriers_[barrierCount];
-  COLOR barrierColors[barrierCount];
+  BaseDrawElement *road_;
+  BaseDrawElement car_;
+  BaseDrawElement barriers_[BARIER_COUNT];
+  COLOR barrierColors[BARIER_COUNT];
 public:
   
   GameObject();

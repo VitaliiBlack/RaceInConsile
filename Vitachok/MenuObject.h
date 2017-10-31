@@ -17,10 +17,10 @@ public:
 
 private:
   
-  Rect mainRect_;
-  Rect subMainRect_;
-  Rect mItems_[3];
-  Rect sItems_[2];
+  BaseDrawElement mainRect_;
+  BaseDrawElement subMainRect_;
+  BaseDrawElement mItems_[3];
+  BaseDrawElement sItems_[2];
   int choosenIndex_ = 0;
   MessageMain message_ = MESSAGE_NONE;
 public:

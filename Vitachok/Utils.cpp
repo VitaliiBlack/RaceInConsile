@@ -2,65 +2,65 @@
 #include <cstdlib>
 
 
-Rect::Rect() {}
-Rect::Rect(int x, int y, int width, int height)
+BaseDrawElement::BaseDrawElement() {}
+BaseDrawElement::BaseDrawElement(int x, int y, int width, int height)
 {
   set(x, y, width, height);
 }
-int Rect::getRight()
+int BaseDrawElement::getRight()
 {
   return x + width_;
 }
-int Rect::getBottom()
+int BaseDrawElement::getBottom()
 {
   return y + height_;
 }
-int Rect::getWidth()
+int BaseDrawElement::getWidth()
 {
   return width_;
 }
-int Rect::getHeight()
+int BaseDrawElement::getHeight()
 {
   return height_;
 }
-void Rect::setWidth(int width)
+void BaseDrawElement::setWidth(int width)
 {
   width_ = max(0, width);
 }
-void Rect::setHeight(int height)
+void BaseDrawElement::setHeight(int height)
 {
   height_ = max(0, height);
 }
-void Rect::set(int x, int y, int width, int height)
+void BaseDrawElement::set(int x, int y, int width, int height)
 {
   this->x = x;
   this->y = y;
   setWidth(width);
   setHeight(height);
 }
-Rect Rect::intersectRect(Rect rect)
+BaseDrawElement BaseDrawElement::intersectRect(BaseDrawElement rect)
 {
-  Rect r;
+  BaseDrawElement r;
   r.x = max(x, rect.x);
   r.y = max(y, rect.y);
   r.setWidth( min(getRight(),  rect.getRight())  - r.x);
   r.setHeight(min(getBottom(), rect.getBottom()) - r.y);
   return r;
 }
-bool Rect::hasPoint(int x, int y)
+bool BaseDrawElement::hasPoint(int x, int y)
 {
   return
     x >= this->x && x < getRight() &&
     y >= this->y && y < getBottom();
 }
 
-bool Rect::isIntersectRect(Rect rect)
+bool BaseDrawElement::isIntersectRect(BaseDrawElement rect)
 {
   rect = intersectRect(rect);
   return rect.width_ && rect.height_;
 }
 
-bool Rect::isEmpty()
+bool BaseDrawElement::isEmpty()
 {
   return !(width_ | height_);
 }
