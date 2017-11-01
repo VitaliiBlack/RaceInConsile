@@ -52,6 +52,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files\Objects\src</Filter>
     </ClCompile>
+    <ClCompile Include="DuckObject.cpp">
+      <Filter>Source Files\Objects\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -79,6 +82,9 @@
       <Filter>Source Files\Objects\inc</Filter>
     </ClInclude>
     <ClInclude Include="MenuObject.h">
+      <Filter>Source Files\Objects\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="DuckObject.h">
       <Filter>Source Files\Objects\inc</Filter>
     </ClInclude>
   </ItemGroup>

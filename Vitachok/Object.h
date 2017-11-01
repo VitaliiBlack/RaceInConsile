@@ -12,13 +12,18 @@ public:
   virtual void onKeyUp(int key) {};
   virtual void onUpdate() {};
   virtual void onDraw(Canvas &canvas) {};
+  virtual void setSpeed(int speed);
+  virtual int  getSpeed();
+
   virtual ~Object() {};
-  bool isEnabled() const;
-  bool isVisible() const;
+  virtual bool isEnabled() const;
+  virtual bool isVisible() const;
   void setEnabled(bool);
   void setVisible(bool);
+ 
 
 private:
+  int speed_ = 0;
   bool isEnabled_ = true;
   bool isVisible_ = true;
 };

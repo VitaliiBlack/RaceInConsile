@@ -6,8 +6,12 @@ MainObject::MainObject()
   menu_.setVisible(false);
   game_.setEnabled(true);
   game_.setVisible(true);
+  duck_.setEnabled(false);
+  duck_.setVisible(false);
   Application::instance().addObject(&menu_);
   Application::instance().addObject(&game_);
+  Application::instance().addObject(&duck_);
+
 }
 
 
@@ -47,6 +51,25 @@ void MainObject::onKeyDown(int key)
 
 void MainObject::onUpdate()
 {
+  if(game_.getScore() >=1000  && game_.getScore() < 1001)
+  {
+    menu_.setEnabled(false);
+    menu_.setVisible(false);
+    game_.setEnabled(false);
+    game_.setVisible(true);
+    duck_.setEnabled(true);
+    duck_.setVisible(true);
+    if(!duck_.duckTime())
+    {
+      game_.setEnabled(true);
+      game_.setVisible(true);
+      duck_.setEnabled(false);
+      duck_.setVisible(false);
+    }
+  }
+  
+  
+  
   if (menu_.getMessage() == MenuObject::MESSAGE_PLAY)
   {
     menu_.setEnabled(false);
@@ -55,8 +78,10 @@ void MainObject::onUpdate()
     game_.setVisible(true);
     menu_.clearMessage();
   }
-  else if (menu_.getMessage() == MenuObject::MESSAGE_EXIT)
+  if (menu_.getMessage() == MenuObject::MESSAGE_EXIT)
   {
     Application::instance().close();
   }
+ 
+  
 }

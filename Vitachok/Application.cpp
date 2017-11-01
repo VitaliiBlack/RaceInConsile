@@ -31,7 +31,7 @@ void Application::close()
   opened_ = false;
 }
 
-void Application::addObject(Object * object)
+void Application::addObject(Object* object)
 {
   if (object != nullptr)
   {
@@ -39,7 +39,7 @@ void Application::addObject(Object * object)
   }
 }
 
-void Application::removeObject(Object * object)
+void Application::removeObject(Object* object)
 {
   if (object != nullptr)
   {
@@ -86,6 +86,7 @@ void Application::checkKeyboard()
 
 void Application::update()
 {
+  
   canvas_.clear(COLOR_BLACK);
   for (Object* object : objects_)
   {

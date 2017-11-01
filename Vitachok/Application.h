@@ -5,6 +5,7 @@
 #include "Console.h"
 #include "Canvas.h"
 #include "Object.h"
+#include <list>
 
 
 //main class, Facade pattern, 
@@ -30,8 +31,9 @@ private:
   std::vector<Object*> objects_;
   void checkKeyboard();
   void update();
-  void notifyKeyDown(int);
-  void notifyKeyUp(int);
+  void notifyKeyDown(int key);
+  void notifyKeyUp(int key);
+  void notifyDuckState();
   Application();
 
 };

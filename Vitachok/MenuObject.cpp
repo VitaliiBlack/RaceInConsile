@@ -70,3 +70,4 @@ void MenuObject::clearMessage()
 {
   message_ = MESSAGE_NONE;
 }
+

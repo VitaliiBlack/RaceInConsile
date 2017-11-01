@@ -105,6 +105,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="DuckObject.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="MainObject.cpp" />
     <ClCompile Include="MenuObject.cpp" />
@@ -153,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="DuckObject.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MainObject.h" />
     <ClInclude Include="MenuObject.h" />

@@ -1,4 +1,7 @@
 #include "GameObject.h"
+#include <mmsystem.h>
+#include "DuckObject.h"
+
 
 //create new objects & setup it
 
@@ -16,7 +19,10 @@ GameObject::GameObject()
 
   //creation car
   car_ = BaseDrawElement(Application::instance().getWidth() * 0.5, Application::instance().getHeight() - 6, 4, 5);
-
+  
+  //duckCrossingRoad_ = BaseDrawElement(Application::instance().getWidth()*0.1, Application::instance().getHeight() / 2, 4, 5);
+  
+  bush_ = BaseDrawElement(Application::instance().getWidth()*0.2, Application::instance().getHeight()* 0.2, 4, 5);
   //creation mass of bariers
   barriers_[0] = BaseDrawElement(random(road_[0].x, road_[0].getRight()),
                       random(-Application::instance().getHeight() * 0.7, -3), 4, 2);
@@ -115,7 +121,6 @@ void GameObject::onUpdate()
     if (car_.isIntersectRect(barriers_[i]))
     {
       ///
-     
       crush = true;
       
       //Application::instance().close();
@@ -149,23 +154,15 @@ void GameObject::onKeyUp(int key)
   }
 }
 
-void GameObject::onDraw(Canvas & canvas)
+int GameObject::getScore()
 {
-  //field
-  canvas.clear(COLOR_DARKGREEN);
-  //road
-  for (int i = 0; i < Application::instance().getHeight(); i++)
-  {
-    canvas.clear(COLOR_GRAY, road_[i]);
-    canvas.drawCell(road_[i].x, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
-    canvas.drawCell(road_[i].getRight() - 1, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
-  }
-  //barrier
-  for (int i = 0; i < BARIER_COUNT; i++)
-  {
-    canvas.clear(barrierColors[i], barriers_[i]);
-  }
-  //car
+  return score_;
+}
+
+
+
+void GameObject::CanvasDrawPlayerCar(Canvas& canvas)
+{
   canvas.clear(COLOR_RED - 8, car_);
   canvas.clear(COLOR_RED, BaseDrawElement(car_.x, car_.y + 2, 4, 2));
   canvas.drawRect(BaseDrawElement(car_.x + 1, car_.y, 2, 2), '|', COLOR_WHITE, COLOR_TRANSPARENT);
@@ -173,27 +170,73 @@ void GameObject::onDraw(Canvas & canvas)
   canvas.drawCell(car_.getRight(), car_.y + 1, ' ', COLOR_BLACK, COLOR_BLACK);
   canvas.drawCell(car_.x - 1, car_.y + 4, ' ', COLOR_BLACK, COLOR_BLACK);
   canvas.drawCell(car_.getRight(), car_.y + 4, ' ', COLOR_BLACK, COLOR_BLACK);
-  //text
+}
+
+
+
+void GameObject::roadCreation(Canvas& canvas)
+{
+  for (int i = 0; i < Application::instance().getHeight(); i++)
+  {
+    canvas.clear(COLOR_GRAY, road_[i]);
+    canvas.drawCell(road_[i].x, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
+    canvas.drawCell(road_[i].getRight() - 1, road_[i].y, ' ', COLOR_GRAY, COLOR_WHITE);
+  }
+}
+
+void GameObject::barriersCreation(Canvas& canvas)
+{
+  for (int i = 0; i < BARIER_COUNT; i++)
+  {
+    canvas.clear(barrierColors[i], barriers_[i]);
+  }
+}
+
+//void GameObject::bushDrawing(Canvas& canvas)
+//{
+//  //x - L-R
+//  //Y - up down
+//  canvas.drawRect(BaseDrawElement(bush_.x, bush_.y, 8, 1), 178, COLOR_GREEN, COLOR_TRANSPARENT);
+//  canvas.drawRect(BaseDrawElement(bush_.x, bush_.y - 1, 8, 1), 178, COLOR_GREEN, COLOR_TRANSPARENT);
+//  canvas.drawRect(BaseDrawElement(bush_.x + 10, bush_.y, 8, 1), 178, COLOR_GREEN, COLOR_TRANSPARENT);
+//  canvas.drawRect(BaseDrawElement(bush_.x + 9, bush_.y-1, 10, 1), 178, COLOR_GREEN, COLOR_TRANSPARENT);
+//  canvas.drawRect(BaseDrawElement(bush_.x + 2, bush_.y -2, 9, 1), 178, COLOR_GREEN, COLOR_TRANSPARENT);
+//}
+
+void GameObject::onDraw(Canvas & canvas)
+{
+  //field
+  canvas.clear(COLOR_DARKGREEN);
+  //road
+  roadCreation(canvas);
+  //barrier
+  barriersCreation(canvas);
+  //Duck
+  //duckDraw(canvas);
+  //car
+  CanvasDrawPlayerCar(canvas);
+  //bush
+ // bushDrawing(canvas);
+  ///text
   canvas.drawText(Application::instance().getWidth() - 17, Application::instance().getHeight() - 3, "SCORE:" + std::to_string(score_), COLOR_YELLOW, COLOR_BLACK);
   canvas.drawText(10, Application::instance().getHeight() - 3, "SPEED:" + std::to_string(int(speed_ * 10)), COLOR_YELLOW, COLOR_BLACK);
-
+  
   if (!isEnabled())
   {
-
+   
     canvas.drawText(Application::instance().getWidth() / 2 - 5,
                     Application::instance().getHeight()/2,
                     "PAUSED", COLOR_RED, COLOR_BLACK);
   }
   if (crush)
   {
+    //PlaySound(TEXT("RickMorty.mp3"), nullptr, SND_ASYNC);
     BaseDrawElement rect;
-
     rect.set(0, 0, Application::instance().getWidth(), Application::instance().getHeight());
     canvas.drawRect(rect, '/', COLOR_RED, COLOR_RED);
     canvas.drawText(Application::instance().getWidth() / 2 - 5, Application::instance().getHeight() / 2, "Game over", COLOR_BLUE, COLOR_YELLOW);
-
-    
   
     
+
   }
 }
